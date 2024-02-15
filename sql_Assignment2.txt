@@ -1,0 +1,166 @@
+1.From the following table return complete information about the employees.
+
+ Select * From employees;
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+| emp_id | emp_name   | job_name  | manager_id | hire_date  | salary   | commission | phone_number | dep_id |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 | 1245321232   |    101 |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1313415343   |    102 |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1133241334   |    103 |
+|   1004 | Pilu       | Software  |       2001 | 2024-03-20 | 25000.00 |   10000.00 | 9872342134   |    101 |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+4 rows in set (0.02 sec)
+
+
+2.From the following table, write a SQL query to find the salaries of all employees. Return salary.
+
+SELECT emp_name,salary FROM employees;
++------------+----------+
+| emp_name   | salary   |
++------------+----------+
+| Devdas     | 75000.00 |
+| Kalpesh    | 35000.00 |
+| Allu Arjun | 35000.00 |
+| Pilu       | 25000.00 |
++------------+----------+
+4 rows in set (0.00 sec)
+
+3. From the following table, write a SQL query to find the unique designations of the employees. Return job name.
+
+SELECT DISTINCT job_name FROM employees;
++-----------+
+| job_name  |
++-----------+
+| Technical |
+| cashier   |
+| Assistant |
+| Software  |
++-----------+
+4 rows in set (0.01 sec)
+
+4.From the following table, write a SQL query to list the employees’ name, increased their salary by 15%, and expressed as number of Dollars.
+
+ SELECT emp_name, salary * 1.15 AS increased_salary_in_dollars
+    -> FROM employees;
++------------+-----------------------------+
+| emp_name   | increased_salary_in_dollars |
++------------+-----------------------------+
+| Devdas     |                  86250.0000 |
+| Kalpesh    |                  40250.0000 |
+| Allu Arjun |                  40250.0000 |
+| Pilu       |                  28750.0000 |
++------------+-----------------------------+
+4 rows in set (0.00 sec)
+
+5.From the following table, write a SQL query to list the employee's name and job name as a format of "Employee & Job".
+
+ SELECT CONCAT(emp_name, ' & ', job_name) AS employee_and_job
+    -> FROM employees;
++------------------------+
+| employee_and_job       |
++------------------------+
+| Devdas & Technical     |
+| Kalpesh & cashier      |
+| Allu Arjun & Assistant |
+| Pilu & Software        |
++------------------------+
+4 rows in set (0.00 sec)
+
+6.Write a query in SQL to produce the output of employees as follows.
+Employee
+Meera(manager).
+
+SELECT CONCAT(emp_name, '(', job_name,')') AS employee
+ FROM employees;
++-----------------------+
+| employee              |
++-----------------------+
+| Devdas(Technical)     |
+| Kalpesh(cashier)      |
+| Allu Arjun(Assistant) |
+| Pilu(Software)        |
++-----------------------+
+4 rows in set (0.00 sec)
+
+7. From the following table, write a SQL query to count the number of characters except the spaces for each employee name. Return employee name length.
+
+ SELECT emp_name,
+    ->        LENGTH(emp_name) - SUM(LENGTH(REPLACE(emp_name, ' ', ''))) + COUNT(*) AS employee_name_length
+    -> FROM employees
+    -> GROUP BY emp_name;
++------------+----------------------+
+| emp_name   | employee_name_length |
++------------+----------------------+
+| Devdas     |                    1 |
+| Kalpesh    |                    1 |
+| Allu Arjun |                    2 |
+| Pilu       |                    1 |
++------------+----------------------+
+4 rows in set (0.00 sec)
+
+
+SELECT emp_name,
+   LENGTH(emp_name) - COUNT(LENGTH(REPLACE(emp_name, ' ', ''))) + COUNT(*) AS employee_name_length
+  FROM employees
+  GROUP BY emp_name;
++------------+----------------------+
+| emp_name   | employee_name_length |
++------------+----------------------+
+| Devdas     |                    6 |
+| Kalpesh    |                    7 |
+| Allu Arjun |                   10 |
+| Pilu       |                    4 |
++------------+----------------------+
+4 rows in set (0.00 sec)
+
+
+8.From the following table, write a SQL query to find the employee ID, salary, and commission of all the employees.
+
+ SELECT emp_id,salary,commission FROM employees;
++--------+----------+------------+
+| emp_id | salary   | commission |
++--------+----------+------------+
+|   1001 | 75000.00 |   20000.00 |
+|   1002 | 35000.00 |   10000.00 |
+|   1003 | 35000.00 |   10000.00 |
+|   1004 | 25000.00 |   10000.00 |
++--------+----------+------------+
+4 rows in set (0.00 sec)
+
+9.From the following table, write a SQL query to find the unique department with jobs. Return department ID, Job name.
+
+
+ SELECT DISTINCT  dep_id,job_name
+    -> FROM employees;
++--------+-----------+
+| dep_id | job_name  |
++--------+-----------+
+|    101 | Technical |
+|    102 | cashier   |
+|    103 | Assistant |
+|    101 | Software  |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+SELECT dep_id, job_name FROM employees GROUP BY dep_id, job_name ;
++--------+-----------+
+| dep_id | job_name  |
++--------+-----------+
+|    101 | Technical |
+|    102 | cashier   |
+|    103 | Assistant |
+|    101 | Software  |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+
+SELECT DISTINCT  dep_id FROM employees GROUP BY dep_id, job_name ;
++--------+
+| dep_id |
++--------+
+|    101 |
+|    102 |
+|    103 |
++--------+
+3 rows in set (0.00 sec)
+
