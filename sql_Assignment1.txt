@@ -1,0 +1,63 @@
+1.From the following table return complete information about the employees.
+
+ Select * from employees;
++--------+------------+-----------+------------+------------+----------+------------+--------+
+| emp_id | emp_name   | job_name  | manager_id | hire_date  | salary   | commission | dep_id |
++--------+------------+-----------+------------+------------+----------+------------+--------+
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 |    101 |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 |    102 |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 |    103 |
++--------+------------+-----------+------------+------------+----------+------------+--------+
+
+2.From the following table, write a SQL query to find the salaries of all employees. Return salary.
+ 
+Select emp_name,salary from employees;
++------------+----------+
+| emp_name   | salary   |
++------------+----------+
+| Devdas     | 75000.00 |
+| Kalpesh    | 35000.00 |
+| Allu Arjun | 35000.00 |
++------------+----------+
+
+3.Add the column to employee table
+
+ Alter table employees ADD COLUMN phone_number int After commission;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Select * from employees;
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+| emp_id | emp_name   | job_name  | manager_id | hire_date  | salary   | commission | phone_number | dep_id |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 |         NULL |    101 |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 |         NULL |    102 |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 |         NULL |    103 |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+
+ Select * from employees;
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+| emp_id | emp_name   | job_name  | manager_id | hire_date  | salary   | commission | phone_number | dep_id |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 |   1245321232 |    101 |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 |   1313415343 |    102 |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 |   1133241334 |    103 |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+
+4.Change the datatype of the column
+
+ Alter table employees modify column phone_number varchar(10);
+
+5.Add the column constranits using modify clause
+
+Alter table employees modify column phone_number varchar(10) not null;
+
+6.Drop the column
+
+Drop table Student;
+Query OK, 0 rows affected (0.03 sec)
+
+7.How to use the ‘after' keyword
+
+Alter table employees ADD COLUMN phone_number int After commission;
+Query OK, 0 rows affected (0.07 sec)
