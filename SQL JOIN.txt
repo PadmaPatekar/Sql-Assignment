@@ -1,0 +1,129 @@
+
+mysql> use mydatabase
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_mydatabase |
++----------------------+
+| department           |
+| employees            |
+| salary_grade         |
++----------------------+
+3 rows in set (0.09 sec)
+
+mysql>
+mysql>
+mysql> select * from department;
++--------+----------+--------------+
+| dep_id | dep_name | dep_location |
++--------+----------+--------------+
+|    101 | IT       | Pune         |
+|    102 | Account  | Pune         |
+|    103 | Finance  | Pune         |
++--------+----------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from employees;
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+| emp_id | emp_name   | job_name  | manager_id | hire_date  | salary   | commission | phone_number | dep_id |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 | 1245321232   |    101 |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1313415343   |    102 |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1133241334   |    103 |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> select employees.emp_name,department.dep_name from employees INNER JOIN department ON employees.dep_id=department.dep_id;
++------------+----------+
+| emp_name   | dep_name |
++------------+----------+
+| Devdas     | IT       |
+| Kalpesh    | Account  |
+| Allu Arjun | Finance  |
++------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employees values(1004,"Pilu","Software",2001,"2024-3-20",25000,10000.00,9872342134,101);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select employees.emp_name,department.dep_name from employees LEFT OUTER JOIN department ON employees.dep_id=department.dep_id;
++------------+----------+
+| emp_name   | dep_name |
++------------+----------+
+| Devdas     | IT       |
+| Kalpesh    | Account  |
+| Allu Arjun | Finance  |
+| Pilu       | IT       |
++------------+----------+
+4 rows in set (0.00 sec)
+
+
+mysql> select employees.emp_name,department.dep_name from employees RIGHT OUTER JOIN department ON employees.dep_id=department.dep_id;
++------------+----------+
+| emp_name   | dep_name |
++------------+----------+
+| Devdas     | IT       |
+| Pilu       | IT       |
+| Kalpesh    | Account  |
+| Allu Arjun | Finance  |
++------------+----------+
+4 rows in set (0.00 sec)
+
+mysql>  select * from employees;
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+| emp_id | emp_name   | job_name  | manager_id | hire_date  | salary   | commission | phone_number | dep_id |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 | 1245321232   |    101 |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1313415343   |    102 |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1133241334   |    103 |
+|   1004 | Pilu       | Software  |       2001 | 2024-03-20 | 25000.00 |   10000.00 | 9872342134   |    101 |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>  select * from employees,department;
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+--------+----------+--------------+
+| emp_id | emp_name   | job_name  | manager_id | hire_date  | salary   | commission | phone_number | dep_id | dep_id | dep_name | dep_location |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+--------+----------+--------------+
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 | 1245321232   |    101 |    103 | Finance  | Pune         |
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 | 1245321232   |    101 |    102 | Account  | Pune         |
+|   1001 | Devdas     | Technical |       2001 | 2019-06-22 | 75000.00 |   20000.00 | 1245321232   |    101 |    101 | IT       | Pune         |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1313415343   |    102 |    103 | Finance  | Pune         |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1313415343   |    102 |    102 | Account  | Pune         |
+|   1002 | Kalpesh    | cashier   |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1313415343   |    102 |    101 | IT       | Pune         |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1133241334   |    103 |    103 | Finance  | Pune         |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1133241334   |    103 |    102 | Account  | Pune         |
+|   1003 | Allu Arjun | Assistant |       2002 | 2019-06-22 | 35000.00 |   10000.00 | 1133241334   |    103 |    101 | IT       | Pune         |
+|   1004 | Pilu       | Software  |       2001 | 2024-03-20 | 25000.00 |   10000.00 | 9872342134   |    101 |    103 | Finance  | Pune         |
+|   1004 | Pilu       | Software  |       2001 | 2024-03-20 | 25000.00 |   10000.00 | 9872342134   |    101 |    102 | Account  | Pune         |
+|   1004 | Pilu       | Software  |       2001 | 2024-03-20 | 25000.00 |   10000.00 | 9872342134   |    101 |    101 | IT       | Pune         |
++--------+------------+-----------+------------+------------+----------+------------+--------------+--------+--------+----------+--------------+
+12 rows in set (0.00 sec)
+
+
+mysql> CREATE TABLE employee (
+    ->     employee_id INT PRIMARY KEY,
+    ->     employee_name VARCHAR(255),
+    ->     manager_id INT
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> INSERT INTO employee VALUES (1, 'John Doe', NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employee VALUES (2, 'Jane Smith', 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employee VALUES (3, 'Bob Johnson', 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employee VALUES (4, 'Alice Brown', 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employee VALUES (5, 'Charlie Green', 3);
+ERROR 1054 (42S22): Unknown column ' 3' in 'field list'
+mysql> INSERT INTO employee VALUES (5, 'Charlie Green',NULL);
+Query OK, 1 row affected (0.01 sec)
+
+
